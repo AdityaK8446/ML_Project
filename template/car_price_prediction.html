@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Used Car Price Prediction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+<style>
+    label, option{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+
+    label{
+        margin-left:4%;
+        font-weight:700;
+    }
+    select, input{
+        width:70%;
+        background:transparent;
+        font-weight: 700;
+        color: black;
+    }
+    input{
+        border: 1px solid black;
+    }
+
+    ::placeholder{
+        color:black;
+    }
+
+    </style>
+</head>
+<body style="background-image:url('template/background_image.jpg'); background-size:cover;">
+    <div style="background:rgb(204,255,255,0.7); width:60%; margin-left:auto; margin-right:auto; padding:10px 10px 10px 10px; margin-top:2%">
+    <h1 style="text-align:center; font-family: 'Roboto', sans-serif;">Used Car Price Prediction</h1>
+    <form action="/predict">
+
+        <div>
+            <label for="Manufacturer">Manufacturer of Car: </label>
+            <select id="manufacturer" name="manufacturer" required>
+                <option value="">--select manufacturer--</option>
+                <option value="0">Acura</option>
+                <option value="2">Audi</option>
+                <option value="3">BMW</option>
+                <option value="5">Cadillac</option>
+                <option value="6">Chevrolet</option>
+                <option value="11">Fiat</option>
+                <option value="12">Ford</option>
+                <option value="15">Honda</option>
+                <option value="16">Hyundai</option>
+                <option value="18">Jaguar</option>
+                <option value="19">Jeep</option>
+                <option value="20">Kia</option>
+                <option value="25">Mercedes-benz</option>
+                <option value="29">Nissan</option>
+                <option value="36">Tesla</option>
+                <option value="37">Toyota</option>
+                <option value="38">Volkswagen</option>
+            </select>
+        </div>
+<br>
+        <div>
+            <label for="model">Model:</label>
+            <select id="model" name="model" required>
+                <option value="">Select Model</option>
+                <option value="Camry">Camry</option>
+                <option value="Civic">Civic</option>
+                <option value="Mustang">Mustang</option>
+                <option value="sierra 1500 crew cab slt">Sierra 1500 Crew Cab SLT</option>
+                <option value="silverado 1500">Silverado 1500</option>
+                <option value="sierra 2500 hd extended cab">Sierra 2500 HD Extended Cab</option>
+                <option value="f150, xlt">F150, XLT</option>
+                <option value="f150, platinum">F150, Platinum</option>
+                <option value="cruze, 2lt">Cruze, 2LT</option>
+            </select>
+        </div>
+<br>
+
+        <script>
+            function populate(s1,s2)
+            {
+                var s1 = document.getElementById(s1);
+                var s2 = document.getElementById(s2);
+
+                s2.innerHTML = "";
+
+                if(s1.value == "0")
+                {
+                    var optionArray = ['5810|ilx','6619|mdx','7788|rdx','7954|rsx','9552|tl','7880|rl'];
+                }
+
+                else if(s1.value == "2")
+                {
+                    var optionArray = ['1185|A3','1213|A4','1271|A5','1285|A6','1315|A7','1326|A8'];
+                }
+
+                else if(s1.value == "3")
+                {
+                    var optionArray = ['12|1 series','218|2 series','455|3 series','574|320i','798|4 series','918|5 series'];
+                }
+
+                else if(s1.value == "5")
+                {
+                    var optionArray = ['3882|Escalade','10524|XTS','3159|CTS','3905|Escalade premium','3347|Deville'];
+                }
+
+                else if(s1.value == "6")
+                {
+                    var optionArray = ['8684|Silverado','352|2500 HD','1647|Avalanche LT','1987|Blazer','2228|Camaro'];
+                }
+
+                else if(s1.value == "11")
+                {
+                    var optionArray = ['947|500 Pop','953|500 Turbo','946|500 Lounge','941|500','30|124 Spider'];
+                }
+
+                else if(s1.value == "12")
+                {
+                    var optionArray = ['4827|F350 Super duty lariat','2030|Bronco','4093|Explorer sport','3660|Edge SE','5248|Fusion'];
+                }
+
+                else if(s1.value == "15")
+                {
+                    var optionArray = ['7294|Pilot','1383|Accord','2574|Civic','3041|Crosstour','6999|Odyssey'];
+                }
+
+                else if(s1.value == "16")
+                {
+                    var optionArray = ['3688|Elantra','10046|Veracruz limited','8899|Sonata','5418|Genesis','10010|Veloster'];
+                }
+
+                else if(s1.value == "18")
+                {
+                    var optionArray = ['10457|XJ','4526|F-Pace 35T R-sport SUV 4d','4523|F-Pace','10445|XF','4525|F-Pace 20D Prestige sport'];
+                }
+
+                else if(s1.value == "19")
+                {
+                    var optionArray = ['10165|Wrangler','7248|Patriot','5594|Grand Cherokee','10221|Wrangler unlimited','10175|Wrangler JK'];
+
+                }
+
+                else if(s1.value == "20")
+                {
+                    var optionArray = ['8985|Soul','5159|Forte','7033|Optima','9051|Sportage','2210|Cadenza'];
+
+                }
+
+                else if(s1.value == "25")
+                {
+                    var optionArray = ['6428|M-Class','2055|C250','3468|E-Class','5450|GL-Class','9069|Sprinter'];
+                }
+
+                else if(s1.value == "29")
+                {
+                    var optionArray = ['7893|Rogue','1518|Altima','8304|Centra','5204|Frontier','10056|Versa','6551|Maxima'];
+                }
+
+                else if(s1.value == "36")
+                {
+                    var optionArray = ['6758|Model S Sedan 4d','6751|Model S','6761|Model X','6753|Model S P85','6759|Model S Signature'];
+                }
+
+                else if(s1.value == "37")
+                {
+                    var optionArray = ['2908|Corolla S','7726|RAV4','2880|Corolla','2273|Camry','9868|Tundra'];
+                }
+
+                else if(s1.value == "38")
+                {
+                    var optionArray = ['7175|Passat','9610|Touareg tdi sport SUV ','5980|Jetta','1746|Beetle','6020|Jetta sportwagen'];
+                }
+
+
+
+
+
+
+
+                for(var option in optionArray)
+                {
+                    var pair = optionArray[option].split("|");
+                    var newoption = document.createElement("option");
+
+                    newoption.value = pair[0];
+                    newoption.innerHTML=pair[1];
+                    s2.options.add(newoption);
+
+                }
+
+
+            }
+        </script>
+
+
+
+
+
+
+
+
+
+        <div>
+            <label for="year">Year of Manufacture:</label>
+            <select id="year" name="year" required>
+                <option value="">--select year--</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+<br>
+        <div>
+            <label for="odometer">Odometer Reading:</label>
+                <input id="odometer" type="number" name="odometer" required>
+        </div>
+<br>
+        <div>
+            <label for="cylinders">Number of Cylinders:</label>
+                <select id="cylinders" name="cylinders" required>
+                <option value="">--select cylinders--</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+<br>
+        <div>
+            <label for="fuel">Fuel type:</label>
+                <select id="fuel" name="fuel" required>
+                <option value="">--select fuel type--</option>
+                <option value="0">Diesel</option>
+                <option value="1">Electric</option>
+                <option value="2">Gas</option>
+                <option value="3">Hybrid</option>
+                <option value="4">Other</option>
+            </select>
+        </div>
+<br>
+        <div>
+            <label for="status">Status of car:</label>
+                <select id="status" name="status" required>
+                <option value="">--select status--</option>
+                <option value="0">clean</option>
+                <option value="1">lien</option>
+                <option value="4">rebuilt</option>
+                <option value="5">salvage</option>
+            </select>
+        </div>
+<br>
+        <div>
+            <label for="transmission">Transmission mode:</label>
+                <select id="transmission"> name="transmission" required>
+                <option value="">--select transmission mode--</option>
+                <option value="0">automatic</option>
+                <option value="1">manual</option>
+                <option value="2">other</option>
+            </select>
+        </div>
+<br>
+        <div>
+           <label for="condition">Condition of car:</label>
+                <select id="condition" name="condition" required>
+                <option value="">--select condition--</option>
+                <option value="0">excellent</option>
+                <option value="1">fair</option>
+                <option value="2">good</option>
+                <option value="3">like new</option>
+                <option value="4">new</option>
+                <option value="5">salvage</option>
+            </select>
+        </div>
+<br>
+        <div>
+           <label for="drive">Drive Type:</label>
+                <select id="drive" name="drive" required>
+                <option value="">--select drive type--</option>
+                <option value="0">Four Wheel Drive(4wd)</option>
+                <option value="1">Front Wheel Drive(fwd)</option>
+                <option value="2">Rear Wheel Drive (rwd)</option>
+            </select>
+        </div>
+<br>
+        <div>
+            <label for="type">Type of the car:</label>
+                <select id="type" name="type" required>
+                <option value="">--select type--</option>
+                <option value="0">SUV</option>
+                <option value="1">bus</option>
+                <option value="2">convertible</option>
+                <option value="3">coupe</option>
+                <option value="4">hatchback</option>
+                <option value="5">mini-van</option>
+                <option value="6">offroad</option>
+                <option value="7">other</option>
+                <option value="8">pickup</option>
+                <option value="9">sedan</option>
+                <option value="10">truck</option>
+                <option value="11">van</option>
+                <option value="12">wagon</option>
+            </select>
+        </div>
+
+<br>
+
+        <div>
+            <label for="color">Color of the car:</label>
+                <select id="color" name="color" required>
+                <option value="">--select color--</option>
+                <option value="0">black</option>
+                <option value="1">blue</option>
+                <option value="2">brown</option>
+                <option value="3">custom</option>
+                <option value="4">green</option>
+                <option value="5">grey</option>
+                <option value="6">orange</option>
+                <option value="7">purple</option>
+                <option value="8">red</option>
+                <option value="9">silver</option>
+                <option value="10">white</option>
+                <option value="11">yellow</option>
+            </select>
+        </div>
+<br>
+
+        <div>
+            <label for="state">State:</label>
+                <select id="state" name="state" required>
+                <option value="">--select state--</option>
+                <option value="0">California</option>
+                <option value="1">Colorado</option>
+                <option value="2">Florida</option>
+                <option value="3">Michigan</option>
+                <option value="4">North Carolina</option>
+                <option value="5">New York</option>
+                <option value="6">Ohio</option>
+                <option value="7">Oregon</option>
+                <option value="8">Pennsylvania</option>
+                <option value="9">Texas</option>
+                <option value="10">Washington</option>
+                <option value="11">Wisconsin</option>
+            </select>
+        </div>
+
+<br>
+
+
+        <div>
+            <button type="submit" style="
+    height: 35px;
+    width: 20%;
+    background: rgb(0,0,0,1);
+    color: rgb(255,255,255,1);
+    border: none;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+">
+    Predict Price of Car
+</button>
+        </div>
+    </form>
+    </div>
+</body>
+</html>
